@@ -11,7 +11,8 @@ def download_list():
 
 
 def download_file(file_tags):
-    file_url = "https://github.com" + file_tags.replace('blob', 'raw')
+    file_url = "https://github.com" + file_tags['href'].replace('blob', 'raw')
     file_data = requests.get(file_url)
-    with open(file_tags.text, 'w') as thefile:
-        thefile.write(file_data.text)
+    return file_data
+    # with open(file_tags.text, 'w') as thefile:
+    #     thefile.write(file_data.text)
