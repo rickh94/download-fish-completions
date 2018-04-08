@@ -19,8 +19,11 @@ setup(
     author_email='fredericmhenry@gmail.com',
 
     license='MIT',
-    python_requires='>=3.4',
-    install_requires=['click'],
+    python_requires='>=3.6',
+    install_requires=['click',
+                      'requests',
+                      'aiohttp',
+                      'bs4'],
 
     py_modules=['dl_fish_completions'],
     entry_points={

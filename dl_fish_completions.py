@@ -24,40 +24,39 @@ def select_files(files):
 
 async def download_file(session, file_tags, save_path):
     file_url = "https://github.com" + file_tags['href'].replace('blob', 'raw')
-    # file_data = requests.get(file_url)
-    # print(f"downloading {file_tags.text}")
     async with async_timeout.timeout(20):
         async with session.get(file_url) as response:
             file_data = await response.read()
-            # print(f"{file_tags.text}: {file_data[:30]}")
     with open(os.path.join(save_path, file_tags.text), 'wb') as thefile:
         thefile.write(file_data)
-    # return file_data, file_tags.text
-    # return file_data
-    # with open(file_tags.text, 'w') as thefile:
-    #     thefile.write(file_data.text)
+    return file_tags.text
 
 
-async def run(files, save_path):
+async def run(files, save_path, verbose):
     tasks = []
     async with ClientSession() as session:
         for file_ in files:
             task = asyncio.ensure_future(download_file(session, file_, save_path))
             tasks.append(task)
 
-        await asyncio.gather(*tasks)
+        downloaded = await asyncio.gather(*tasks)
+    if verbose:
+        filenames = ', '.join(downloaded)
+        print(f"Downloaded: {filenames}")
 
 
 @click.command()
 @click.option("-p", "--path",
               help="path to save new completions. Defaults to ~/.config/fish/completions")
-def cli(path):
+@click.option("-v", "--verbose", is_flag=True, default=False,
+              help="print files downloaded")
+def cli(path, verbose):
     if path is None:
         path = os.path.expanduser('~/.config/fish/completions')
     os.makedirs(path, exist_ok=True)
     files = download_list()
     needed_files = select_files(files)
     loop = asyncio.get_event_loop()
-    future = asyncio.ensure_future(run(needed_files, path))
+    future = asyncio.ensure_future(run(needed_files, path, verbose=verbose))
     loop.run_until_complete(future)
 

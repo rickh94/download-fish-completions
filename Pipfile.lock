@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cbb0a89f65b0dc90a1657b76f1bad010813b9ae036a268e2c21f53d2b3d2bd81"
+            "sha256": "fb5c3640905b6076151a5210af756dfed0512c960195473725d9fdd0dd462856"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -78,11 +78,22 @@
             ],
             "version": "==3.0.4"
         },
+        "click": {
+            "hashes": [
+                "sha256:29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d",
+                "sha256:f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b"
+            ],
+            "version": "==6.7"
+        },
         "docopt": {
             "hashes": [
                 "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"
             ],
             "version": "==0.6.2"
+        },
+        "e1839a8": {
+            "editable": true,
+            "path": "."
         },
         "idna": {
             "hashes": [
